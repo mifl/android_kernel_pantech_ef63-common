@@ -10,7 +10,14 @@
 ###############################################################################
 
 ###############################################################################
-# set toolchain
+# Set variables
+###############################################################################
+BUILD_KERNEL_OUT_DIR=obj
+BUILD_KERNEL_OUT_SUBDIR=KERNEL_OBJ
+BUILD_KERNEL_LOG=kernel_log.txt
+
+###############################################################################
+# Set toolchain
 ###############################################################################
 
 export ARCH=arm
@@ -18,28 +25,32 @@ export PATH=$(pwd)/../../../prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin:$PATH
 export CROSS_COMPILE=arm-eabi-
 
 ###############################################################################
-# Clean: boot.img, dt.img, zImage and obj dir
+# Clean: boot.img, dt.img, zImage, log file and obj dir
 ###############################################################################
 
 make mrproper
-make O=./obj/KERNEL_OBJ/ clean
+make O=./$BUILD_KERNEL_OUT_DIR/$BUILD_KERNEL_OUT_SUBDIR/ clean
 
-if [ -f ./mkbootimg/*/boot.img ]
-then
-    rm ./mkbootimg/*/boot.img
+if [ -f ./mkbootimg/*/boot.img ]; then
+	rm ./mkbootimg/*/boot.img
 fi
 
-if [ -f ./mkbootimg/*/zImage ]
-then
-    rm ./mkbootimg/*/zImage
+if [ -f ./mkbootimg/*/zImage ]; then
+	rm ./mkbootimg/*/zImage
 fi
 
-if [ -f ./mkbootimg/*/dt.img ]
-then
-    rm ./mkbootimg/*/dt.img
+if [ -f ./mkbootimg/*/dt.img ]; then
+	rm ./mkbootimg/*/dt.img
 fi
 
-if [ -d ./obj/ ]
-then
-    rm -r ./obj/
+if [ -f ./zImage ]; then
+	rm ./zImage
+fi
+
+if [ -d ./$BUILD_KERNEL_OUT_DIR/ ]; then
+	rm -r ./$BUILD_KERNEL_OUT_DIR/
+fi
+
+if [ -f ./$BUILD_KERNEL_LOG ]; then
+	rm ./$BUILD_KERNEL_LOG
 fi

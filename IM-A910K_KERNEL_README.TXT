@@ -10,7 +10,7 @@ How to Build:
         1) Modify below lines in "build_ef63k.sh"
             export PATH=$(pwd)/../../../prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin:$PATH
         2) Run Kernel Build Script
-            $ ./build_ef63k.sh
+            $ ./build_kernel.sh ef63k_defconfig
 
     4. Output Files:
         - kernel: ./mkbootimg/ef63k/zImage
